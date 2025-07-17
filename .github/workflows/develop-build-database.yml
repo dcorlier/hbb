@@ -1,0 +1,28 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Develop-Build-ConsoleDatabase
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    name: BuildDbConsole
+    runs-on: ubuntu-latest
+    env:
+      SOLUTION: ./solutions/hbbdemo/hbbdemo.sln
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.SOLUTION }}
+    - name: Build
+      run: dotnet build ${{ env.SOLUTION }} --configuration Release --no-restore    
