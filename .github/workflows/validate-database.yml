@@ -21,7 +21,7 @@ jobs:
            databasefolder: 'sources/ConsoleDatabase/**'
      
   build:
-    name: BuildDbConsole
+    name: Run PR Build ConsoleDatabase
     runs-on: ubuntu-latest
     needs: check-changes
     if: needs.check-changes.output.run_build == 'true'    
@@ -42,6 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: check-changes
     if: needs.check-changes.output.run_build == 'false'
-    name: Skip databaase build
+    name: Skip PR Build ConsoleDatabase
     steps:
       - run : echo "no changes in the database project => Build skipped."
