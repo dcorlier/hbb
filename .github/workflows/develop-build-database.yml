@@ -5,11 +5,7 @@ name: Develop-Build-ConsoleDatabase
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "develop" ]
-  pull_request:
-    branches: [ "develop" ]
-
+  
 jobs:
   build:
     name: BuildDbConsole
