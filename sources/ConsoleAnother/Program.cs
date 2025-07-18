@@ -1,10 +1,10 @@
-﻿namespace ConsoleDatabase
+﻿namespace ConsoleAnother
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, Achin!");
+            Console.WriteLine("Hello, Jan!");
         }
     }
 }
