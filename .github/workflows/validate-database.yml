@@ -11,7 +11,7 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     outputs:
-      run_build: ${{ steps.check.outputs.run_build }}
+      databasefolder: ${{ steps.check.outputs.databasefolder }}
     steps:
       - name: check for changes in database folder
         id: check
