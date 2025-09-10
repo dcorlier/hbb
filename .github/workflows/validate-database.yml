@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: Database changes detected - Build
         if: needs.check-changes.outputs.databasechanged == 'true'
-        uses: dcorlier/hbb/.github/workflows/build-database.yml@feature/transformers/tests
+        uses: dcorlier/hbb/.github/workflows/build-database.yml@develop
       - name: No database changes detected - Skip
         if: needs.check-changes.outputs.databasechanged == 'false'
         run: echo "no changes in the database project => Build skipped."
