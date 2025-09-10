@@ -21,13 +21,15 @@ jobs:
            databasefolder: 'sources/ConsoleDatabase/**'
      
   build:
-    name: Check For Database Changes
+    name: Database Changes Detected - Build
     needs: check-changes
+    if: needs.check-changes.outputs.databasechanged == 'true'
+    uses: dcorlier/hbb/.github/workflows/build-database.yml@develop
+
+  skip-build:
+    name: No database changes detected - Skip
+    needs: check-changes
+    if: needs.check-changes.outputs.databasechanged == 'false'
     runs-on: ubuntu-latest
     steps:
-      - name: Database changes detected - Build
-        if: needs.check-changes.outputs.databasechanged == 'true'
-        uses: dcorlier/hbb/.github/workflows/build-database.yml@develop
-      - name: No database changes detected - Skip
-        if: needs.check-changes.outputs.databasechanged == 'false'
-        run: echo "no changes in the database project => Build skipped."
+      - run: echo "no changes in the database project => Build skipped."
