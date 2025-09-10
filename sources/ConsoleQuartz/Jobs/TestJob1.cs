@@ -9,7 +9,7 @@ public class TestJob1:IJob
     {
         try
         {
-            JobExecutionRun job 
+            //JobExecutionRun job 
         }
         catch (Exception e)
         {
