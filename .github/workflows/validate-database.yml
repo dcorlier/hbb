@@ -21,27 +21,13 @@ jobs:
            databasefolder: 'sources/ConsoleDatabase/**'
      
   build:
-    name: Run PR Build ConsoleDatabase
-    runs-on: ubuntu-latest
+    name: Check For Database Changes
     needs: check-changes
-    if: needs.check-changes.outputs.databasechanged == 'true'    
-    env:
-      SOLUTION: ./solutions/hbbdemo/hbbdemo.sln
-    steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 9.0.x
-    - name: Restore dependencies
-      run: dotnet restore ${{ env.SOLUTION }}
-    - name: Build
-      run: dotnet build ${{ env.SOLUTION }} --configuration Release --no-restore
-  
-  skip-build:
     runs-on: ubuntu-latest
-    needs: check-changes
-    if: needs.check-changes.outputs.databasechanged == 'false'
-    name: Skip PR Build ConsoleDatabase
     steps:
-      - run : echo "no changes in the database project => Build skipped."
+      - name: Database changes detected - Build
+        if: needs.check-changes.outputs.databasechanged == 'true'
+        uses: ./.github/workflows/build-database.yml
+      - name: No database changes detected - Skip
+        if: needs.check-changes.outputs.databasechanged == 'false'
+        run: echo "no changes in the database project => Build skipped."
